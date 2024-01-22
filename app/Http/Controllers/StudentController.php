@@ -104,4 +104,10 @@ class StudentController extends Controller
 
         return redirect('/student/products');
     }
+
+    public function transaction_get() {
+        // $transactions = Transaction::where('user_id', auth()->user()->id)->get();
+        $wallets = Wallet::where('user_id', auth()->user()->id)->get();
+        return view('student.transaction', compact('wallets'));
+    }
 }

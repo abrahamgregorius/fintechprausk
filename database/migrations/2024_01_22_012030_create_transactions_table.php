@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->foreignId('product_id')->constrained()->onDelete('CASCADE');
+            $table->string('code')->nullable();
             $table->enum('status', ['pending', 'success']);
             $table->timestamps();
         });

@@ -24,7 +24,7 @@
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/student/products">Products</a>
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/student/cart">Cart</a>
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/student/topup">Topup</a>
-            <a class="hover:bg-slate-100 transition p-1 rounded" href="/student/transaction">Transactions</a>
+            <a class="hover:bg-slate-100 transition p-1 rounded" href="/student/transactions">Transactions</a>
             @endif
         </div>
         <div class="sidebar-logout fixed bottom-0 mb-4 ml-4">

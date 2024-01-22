@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
 
         Wallet::insert([
             [
-                'user_id' => 3,
+                'user_id' => 5,
                 'credit' => 100000,
                 'status' => 'success'
             ]

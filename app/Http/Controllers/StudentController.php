@@ -11,7 +11,7 @@ class StudentController extends Controller
 {
     public function products() {
         $products = Product::get();
-        $transactions = Wallet::get();
+        $transactions = Wallet::where('user_id', auth()->user()->id)->get();
         $credit = 0;
         $debit = 0;
 
@@ -41,7 +41,7 @@ class StudentController extends Controller
     }
 
     public function topup_get() {
-        $transactions = Wallet::get();
+        $transactions = Wallet::where('user_id', auth()->user()->id)->get();
         $credit = 0;
         $debit = 0;
         foreach($transactions as $trans) {
@@ -63,7 +63,7 @@ class StudentController extends Controller
     }
 
     public function cart_get() {
-        $transactions = Wallet::get();
+        $transactions = Wallet::where('user_id', auth()->user()->id)->get();
         $credit = 0;
         $debit = 0;
         foreach($transactions as $trans) {
@@ -83,6 +83,15 @@ class StudentController extends Controller
     }
 
     public function cart_post() {
+        $transactions = Wallet::where('user_id', auth()->user()->id)->get();
+        $credit = 0;
+        $debit = 0;
+        foreach($transactions as $trans) {
+            $credit += $trans->credit;
+            $debit += $trans->debit;
+        }
+        $balance = $credit - $debit;
+
         $cart = Transaction::where('user_id', auth()->user()->id)->where('status', 'pending')->get();
 
         if(!$cart) {
@@ -90,24 +99,47 @@ class StudentController extends Controller
         }
 
         $total_price = 0;
+
         foreach($cart as $item) {
-            $item->update(['status' =>'success']);
             $total_price += $item->product->price;
         }
+        
+        if($total_price > $balance) {
+            return redirect('/products')->with('status', 'Failed');
+        } else {
+            Wallet::create([
+                'debit' => $total_price,
+                'credit' => null,
+                'user_id' => auth()->user()->id,
+                'status' => 'success'
+            ]);
 
-        Wallet::create([
-            'debit' => $total_price,
-            'credit' => null,
-            'user_id' => auth()->user()->id,
-            'status' => 'success'
-        ]);
+            $code = bin2hex(random_bytes(3));
 
-        return redirect('/student/products');
+            foreach($cart as $item) {
+                $item->update([
+                    'status' =>'success',
+                    'code' => $code,
+                ]);
+            }
+    
+            return redirect("/student/cart/invoice/$code");
+        }
+
     }
 
     public function transaction_get() {
-        // $transactions = Transaction::where('user_id', auth()->user()->id)->get();
         $wallets = Wallet::where('user_id', auth()->user()->id)->get();
         return view('student.transaction', compact('wallets'));
+    }
+
+    public function pastcart_get() {
+        $transactions = collect(Transaction::where('user_id', auth()->user()->id)->get())->sortByDesc('created_at')->groupBy('code');
+        return view('student.pastcart', compact('transactions'));
+    }
+
+    public function invoice($code) {
+        $transaction = Transaction::where('user_id', auth()->user()->id)->where('code', $code)->get();
+        return view('layout.invoice', compact('transaction', 'code'));
     }
 }

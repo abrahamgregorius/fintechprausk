@@ -35,3 +35,5 @@ Route::post('/student/topup', [StudentController::class, 'topup_post']);
 Route::get('/student/cart', [StudentController::class, 'cart_get']);
 Route::post('/student/cart', [StudentController::class, 'cart_post']);
 Route::get('/student/transactions', [StudentController::class, 'transaction_get']);
+Route::get('/student/cart/past', [StudentController::class, 'pastcart_get']);
+Route::get('/student/cart/invoice/{code}', [StudentController::class, 'invoice']);

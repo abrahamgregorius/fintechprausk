@@ -6,6 +6,9 @@
     <p>Balance: <span class="px-4 py-2 bg-green-500 rounded">${{ $balance }}</span></p>
 </div>
 <div class="products-body">
+    @session('status')
+        <p class="px-4 py-2 bg-red-300 rounded">{{ session('status') }}</p>
+    @endsession
     <div class="grid grid-cols-4 gap-8">
         @foreach ($products as $product)
         <div class="product rounded shadow-slate-500 shadow-lg">

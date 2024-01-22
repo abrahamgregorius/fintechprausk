@@ -85,6 +85,10 @@ class StudentController extends Controller
     public function cart_post() {
         $cart = Transaction::where('user_id', auth()->user()->id)->where('status', 'pending')->get();
 
+        if(!$cart) {
+            return redirect('/')->with('status', 'failed');
+        }
+
         $total_price = 0;
         foreach($cart as $item) {
             $item->update(['status' =>'success']);

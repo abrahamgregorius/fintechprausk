@@ -147,7 +147,8 @@ class StudentController extends Controller
 
     public function destroy($id) {
         $transaction = Transaction::find($id);
-        $transaction->product->update([
+        $product = Product::find($transaction->product_id);
+        $product->update([
             'stock' => $transaction->product->stock + 1
         ]);
         $transaction->delete();

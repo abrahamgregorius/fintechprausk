@@ -17,6 +17,8 @@ Route::post('/products/add', [ProductController::class, 'store']);
 Route::get('/products/{id}', [ProductController::class, 'edit']);
 Route::post('/products/{id}', [ProductController::class, 'update']);
 Route::post('/products/{id}/delete', [ProductController::class, 'destroy']);
+Route::get('/product/transactions', [ProductController::class, 'transactions']);
+Route::get('/product/invoice/{code}', [ProductController::class, 'invoice']);
 
 // Bank
 Route::get('/topup', [BankController::class, 'topup_get']);
@@ -37,3 +39,4 @@ Route::post('/student/cart', [StudentController::class, 'cart_post']);
 Route::get('/student/transactions', [StudentController::class, 'transaction_get']);
 Route::get('/student/cart/past', [StudentController::class, 'pastcart_get']);
 Route::get('/student/cart/invoice/{code}', [StudentController::class, 'invoice']);
+Route::post('/student/cart/{id}/delete', [StudentController::class, 'destroy']);

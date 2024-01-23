@@ -12,6 +12,7 @@
                 <th class="border border-black px-4 py-2">Product</th>
                 <th class="border border-black px-4 py-2">Category</th>
                 <th class="border border-black px-4 py-2">Price</th>
+                <th class="border border-black px-4 py-2">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,12 @@
                     <td class="border border-black p-2 text-center">{{ $item->product->name }}</td>
                     <td class="border border-black p-2 text-center">{{ $item->product->category->name }}</td>
                     <td class="border border-black p-2 text-center">{{ $item->product->price }}</td>
+                    <td class="border border-black p-2 text-center">
+                        <form method="POST" action="/student/cart/{{ $item->id }}/delete">
+                            @csrf
+                            <button class="px-4 py-2 rounded bg-red-400 hover:bg-red-500">&#9746;</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

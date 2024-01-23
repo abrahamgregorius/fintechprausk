@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -43,5 +44,15 @@ class ProductController extends Controller
         }
         $product->delete();
         return redirect()->back();
+    }
+
+    public function transactions() {
+        $transactions = collect(Transaction::get())->sortByDesc('created_at')->groupBy('code');
+        return view('shop.transactions', compact('transactions'));
+    }
+
+    public function invoice($code) {
+        $transaction = Transaction::where('code', $code)->get();
+        return view('layout.invoice', compact('transaction', 'code'));
     }
 }

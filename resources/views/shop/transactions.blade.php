@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
 <div class="pastcart-head mb-4">
-    <h1 class="text-2xl">Past Orders</h1>
+    <h1 class="text-2xl">Transactions</h1>
 </div>
 
 <div class="pastcart-body">
@@ -10,9 +10,10 @@
                 @php
                     $transac = $transactionGroup[0];
                 @endphp
-                <a href="{{ "/student/cart/invoice/$code" }}">
+                <a href="{{ "/product/invoice/$code" }}">
                     <h3 class="text-lg font-bold mb-2 hover:text-slate-600 transition">TR_{{ $code }}</h3>
                 </a>
+                <p class="">by <span class="font-bold">{{ $transac->user->username }}</span></p>
                 <p class="">{{ $transac->created_at }}</p>
                 <ul class="list-none p-0 m-0">
                     @php

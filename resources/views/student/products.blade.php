@@ -7,7 +7,7 @@
 </div>
 <div class="products-body">
     @session('status')
-        <p class="px-4 py-2 bg-red-300 rounded">{{ session('status') }}</p>
+        <p class="px-4 py-2 bg-red-600 text-white rounded mb-4">{{ session('status') }}</p>
     @endsession
     <div class="grid grid-cols-4 gap-8">
         @foreach ($products as $product)

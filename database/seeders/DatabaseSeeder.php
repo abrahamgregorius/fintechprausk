@@ -79,6 +79,13 @@ class DatabaseSeeder extends Seeder
                 'stock' => 29,
                 'thumbnail' => 'https://source.unsplash.com/random/500x500/?drinks'
             ],
+            [
+                'name' => 'Mahal',
+                'category_id' => 2,
+                'price' => 5000000,
+                'stock' => 29,
+                'thumbnail' => 'https://source.unsplash.com/random/500x500/?drinks'
+            ],
         ]);
 
         Wallet::insert([

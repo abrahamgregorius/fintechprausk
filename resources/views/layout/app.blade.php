@@ -19,6 +19,7 @@
             @elseif(auth()->user()->role == 'shop')
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/">Home</a>
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/products">Products</a>
+            <a class="hover:bg-slate-100 transition p-1 rounded" href="/product/transactions">Transactions</a>
             @elseif(auth()->user()->role == 'student')
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/">Home</a>
             <a class="hover:bg-slate-100 transition p-1 rounded" href="/student/products">Products</a>
